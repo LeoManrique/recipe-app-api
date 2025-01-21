@@ -9,13 +9,13 @@ ${sshCmd} = "C:/cwrsync/bin/ssh.exe -i C:/Users/Leo/.ssh/id_rsa -o UserKnownHost
 ${localDirCygwin} = "/cygdrive/" + (${localDir} -replace ":", "").Replace("\", "/")
 
 # Sync from local to remote
-Write-Host "Syncing from local to remote..." -ForegroundColor Green
+Write-Host "Syncing from local to remote..." -ForegroundColor Cyan
 ${rsyncLocalToRemote} = "rsync -avz --delete -e `"${sshCmd}`" --exclude-from=`"${localDirCygwin}/${rsyncIgnore}`" `"${localDirCygwin}/`" `"${remoteHost}:${remoteDir}`""
 Invoke-Expression ${rsyncLocalToRemote}
 
 # Sync from remote to local
-Write-Host "Syncing from remote to local..." -ForegroundColor Green
+Write-Host "Syncing from remote to local..." -ForegroundColor Cyan
 ${rsyncRemoteToLocal} = "rsync -avz --delete -e `"${sshCmd}`" --exclude-from=`"${localDirCygwin}/${rsyncIgnore}`" `"${remoteHost}:${remoteDir}`" `"${localDirCygwin}/`""
 Invoke-Expression ${rsyncRemoteToLocal}
 
-Write-Host "Sync completed!" -ForegroundColor Cyan
+Write-Host "Sync completed!" -ForegroundColor Green
