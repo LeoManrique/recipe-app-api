@@ -22,29 +22,28 @@ fi
 
 # Perform sync from local to remote if --sync is specified
 if [ "$sync_flag" = true ]; then
-  echo "Syncing from local to remote..."
   rsync -avz --delete -e "$sshCmd" --exclude-from="${localDir}${rsyncIgnore}" "$localDir" "$remoteHost:$remoteDir"
   if [ $? -ne 0 ]; then
     echo "Error during sync from local to remote."
     exit 1
   fi
-  echo -e "\n"
+  printf "\n"
 fi
 
 # Optional: Execute a remote command
 if [ $# -gt 0 ]; then
-  echo -e "Executing remote command..."
+  echo -e "Executing remote command...\n"
   $sshCmd "$remoteHost" "cd $remoteDir && $@"
   if [ $? -ne 0 ]; then
     echo "Error executing remote command."
     exit 1
   fi
-  echo "Execution completed!"
+  echo -e "\nExecution completed!"
 fi
 
 # Perform sync from remote to local if --sync is specified
 if [ "$sync_flag" = true ]; then
-  echo -e "\nSyncing from remote to local..."
+  printf "\n"
   rsync -avz --delete -e "$sshCmd" --exclude-from="${localDir}${rsyncIgnore}" "$remoteHost:$remoteDir" "$localDir"
   if [ $? -ne 0 ]; then
     echo "Error during sync from remote to local."

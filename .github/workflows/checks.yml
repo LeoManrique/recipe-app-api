@@ -9,15 +9,24 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Debug Secrets
-        run: echo ${{ secrets.DOCKERHUB_USER }} && echo ${{ secrets.DOCKERHUB_TOKEN }}
+        env:
+          DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo "Docker Hub User: $DOCKERHUB_USER"
+          echo "Docker Hub Token: $DOCKERHUB_TOKEN"
+
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Test
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Tests
         run: docker compose run --rm app sh -c "python manage.py test"
-      - name: Lint
+
+      - name: Run Lint
         run: docker compose run --rm app sh -c "flake8"
