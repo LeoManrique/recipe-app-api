@@ -38,8 +38,3 @@ coverage/
 junit*.xml
 *.pytest_cache/
 
-# ========================
-# Git-specific
-# ========================
-.git/
-.github/
