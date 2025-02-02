@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-wya)!8)ovg^wpuwif(kq5q!7)fa_w%8+9oy6lm&r$k2eyvsqji
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['luxsystems.it', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['luxsystems.it', 'leonardomanrique.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -126,3 +126,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'core.User'
