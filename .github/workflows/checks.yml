@@ -25,14 +25,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Wait for DB
-        run: docker compose run --rm app sh -c "python manage.py wait_for_db"
-
-      - name: Apply Migrations
-        run: docker compose run --rm app sh -c "python manage.py migrate"
-
       - name: Run Tests
-        run: docker compose run --rm app sh -c "python manage.py test"
+        run: docker compose run --rm app sh -c "python manage.py wait_for_db && python manage.py makemigrations && python manage.py migrate && python manage.py test"
 
       - name: Run Lint
         run: docker compose run --rm app sh -c "flake8"
