@@ -8,7 +8,6 @@ __pycache__/
 *.log
 *.tmp
 .env
-migrations/
 
 # Static and Media Files
 staticfiles/
